@@ -102,7 +102,7 @@ function removeTooltip() {
   }
 }
 
-window.onmouseup = removeTooltip
+window.onmousedown = removeTooltip
 
 var commandList = []
 
