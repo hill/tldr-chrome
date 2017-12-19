@@ -4,7 +4,8 @@ TODO
 [x] search for word in github
 [x] load relavent markdown
 [ ] display markdown in tooltip
-[ ] make tool tip stay in place on scroll
+[x] make tool tip stay in place on scroll
+[x] arrow in the tooltip
 [ ] flip tooltip based on where the element is on the page
 [ ] search for keywords in pre and code tags
     - display underline
@@ -44,6 +45,7 @@ function searchTLDR(command, platform) {
 
 var div = null
 var tooltip = null
+var arrow = null
 
 function createTooltip(content) {
   // https://stackoverflow.com/questions/18302683/how-to-create-tooltip-over-text-selection-without-wrapping/18302723#18302723
@@ -72,7 +74,7 @@ function createTooltip(content) {
       tooltip.parentNode.removeChild(tooltip)
     }
 
-    tooltip = document.createElement('tooltip')
+    tooltip = document.createElement('div')
     Object.assign(
       tooltip.style,
       {
@@ -91,6 +93,25 @@ function createTooltip(content) {
     tooltip.style.height = '195px'
     tooltip.style.width = '300px'
     document.body.appendChild(tooltip)
+
+    arrow = document.createElement('div')
+    tooltip.appendChild(arrow)
+
+    Object.assign(
+      arrow.style,
+      {
+        width: "0",
+        height: "0",
+        borderLeft: "5px solid transparent",
+        borderRight: "5px solid transparent",
+        borderTop: "5px solid #4A4A4A",
+        position: "absolute",
+        left: '5px',
+        top: tooltip.style.height
+
+
+      }
+    )
 
   }
 
