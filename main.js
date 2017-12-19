@@ -1,6 +1,19 @@
 
 //https://api.github.com/repos/tldr-pages/tldr/contents/pages/common
 let tldrURL = "https://raw.githubusercontent.com/tldr-pages/tldr/master/pages"
+let fontURLBold = chrome.runtime.getURL('/fonts/OfficeCodePro-Bold.woff'),
+    fontURLMedium = chrome.runtime.getURL('/fonts/OfficeCodePro-Medium.woff'),
+    fontURLMediumItalic = chrome.runtime.getURL('/fonts/OfficeCodePro-MediumItalic.woff')
+
+document.createElement("style").innerText += ".TDLRmarkdown h1 {font-family: monospace; font-size: 40px; color: white; }\
+                                              .TDLRmarkdown code {background: white;}\
+                                              @font-face { font-family: 'Office Code Pro'; src:  url('" + fontURLMedium + "') format('woff');}\
+                                              @font-face { font-family: 'Office Code Pro'; src:  url('" + fontURLBold + "') format('woff'); font-weight: 900;}\
+                                              @font-face { font-family: 'Office Code Pro'; src:  url('" + fontURLMediumItalic + "') format('woff'); font-style: italic}"
+var tooltip = null
+var arrow = null
+var currentContent = null
+console.log(currentContent)
 
 // For right-click tldr search
 chrome.runtime.onMessage.addListener(
@@ -27,15 +40,14 @@ function searchTLDR(command, platform) {
 
 }
 
-document.createElement("style").innerText += ".TDLRmarkdown h1 {font-family: monospace; font-size: 40px; color: white; } \n .TDLRmarkdown code {background: white;}"
-var tooltip = null
-var arrow = null
-
-function createTooltip(content) {
+function createTooltip(content, isMarked) {
+  isMarked = isMarked || false
   // https://stackoverflow.com/questions/18302683/how-to-create-tooltip-over-text-selection-without-wrapping/18302723#18302723
   var selection = window.getSelection(),
       range = selection.getRangeAt(0),
       rect = range.getBoundingClientRect();
+
+
 
   if (rect.width >= 0) {
 
@@ -44,6 +56,8 @@ function createTooltip(content) {
     }
 
     tooltip = document.createElement('div')
+    newtop = rect.top - 200 + window.scrollY
+
     Object.assign(
       tooltip.style,
       {
@@ -52,16 +66,14 @@ function createTooltip(content) {
         borderRadius: "8px",
         transition: '.2s',
         position: "absolute",
-        overflow: "scroll"
+        overflow: "scroll",
+        top: newtop + 'px',
+        left: rect.left + 'px',
+        height: '195px',
+        width: '500px'
 
       }
     )
-
-    newtop = rect.top - 200 + window.scrollY
-    tooltip.style.top = newtop + 'px'
-    tooltip.style.left = rect.left + 'px'
-    tooltip.style.height = '195px'
-    tooltip.style.width = '500px'
 
     document.body.appendChild(tooltip)
 
@@ -86,17 +98,26 @@ function createTooltip(content) {
 
     // Create markdown and append to tooltip
     if (content.trim() === "404: Not Found") {
-      console.log('content!')
       var markdown = "<center><p style='font-size:50px;padding:0; padding-top: 30px; margin:0;'>😱</p><p>Page Not Found!</p><p>Submit a pull request to: <a target='_blank' href='https://github.com/tldr-pages/tldr'>https://github.com/tldr-pages/tldr</a></p>"
+    } else if (isMarked) {
+      var markdown = content
     } else {
-      console.log('markdown!')
       var markdown = marked(content)
     }
+
+    currentContent = markdown;
 
     var markdownContent = document.createElement('div')
     markdownContent.innerHTML = markdown
     markdownContent.className += 'TLDRmarkdown'
     tooltip.appendChild(markdownContent)
+
+    fontface = document.createElement('style')
+    document.head.appendChild(fontface)
+    fontface.innerText += "@font-face { font-family: 'Office Code Pro'; src:  url('" + fontURLMedium + "') format('woff');}\
+    @font-face { font-family: 'Office Code Pro'; src:  url('" + fontURLBold + "') format('woff'); font-weight: 900;}\
+    @font-face { font-family: 'Office Code Pro'; src:  url('" + fontURLMediumItalic + "') format('woff'); font-style: italic}\
+    "
 
     Object.assign(
       markdownContent.style,
@@ -106,7 +127,56 @@ function createTooltip(content) {
       }
     )
 
-    //markdownContent.getElementsByTagName('h1')
+    Object.assign(
+      markdownContent.getElementsByTagName('h1')[0].style,
+      {
+        fontSize: '30px',
+        fontFamily: 'Office Code Pro',
+        fontWeight: '900',
+        color: 'white'
+      }
+    )
+
+    Object.assign(
+      markdownContent.getElementsByTagName('blockquote')[0].style,
+      {
+        fontSize: '15px',
+        fontFamily: 'Office Code Pro',
+        fontStyle: 'italic',
+        color: 'white'
+      }
+    )
+
+    for (i of markdownContent.getElementsByTagName('p')) {
+      Object.assign(
+        i.style,
+        {
+          fontSize: '15px',
+          fontFamily: 'Office Code Pro',
+          color: 'white'
+        }
+      )
+    }
+    for (i of markdownContent.getElementsByTagName('li')) {
+      Object.assign(
+        i.style,
+        {
+          fontSize: '12px',
+          fontFamily: 'Office Code Pro',
+          color: 'white',
+          listStyleType: 'none'
+
+        }
+      )
+    }
+    for (i of markdownContent.getElementsByTagName('ul')) {
+      Object.assign(
+        i.style,
+        {
+          marginLeft: '0'
+        }
+      )
+    }
 
   }
 
@@ -118,6 +188,7 @@ function removeTooltip() {
     tooltip = null
     arrow.parentNode.removeChild(arrow)
     arrow = null
+    currentContent = null
   }
 }
 
@@ -162,4 +233,10 @@ function checkCode() {
   })
 }
 
-checkCode()
+window.onresize = function(event) {
+  if (tooltip) {
+    oldContent = currentContent
+    removeTooltip()
+    createTooltip(oldContent, true)
+  }
+}

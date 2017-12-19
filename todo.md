@@ -12,6 +12,8 @@
   - [x] Link to Github contribution page
 - [x] arrow in the tooltip
 - [ ] style markdown
+  - [ ] Better fonts
+  - [ ] Remove styles inherited from document
 
 ## v0.3.0
 
@@ -22,6 +24,9 @@
 - [ ] Icon for right-click menu bar
 - [ ] Icon for store
 - [ ] Screenshots
+- [ ] Description
+- [ ] Better README
+- [ ] Contribution Guidelines
 
 ## Other features
 - [ ] search for keywords in pre and code tags
