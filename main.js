@@ -56,6 +56,7 @@ function createTooltip(content, isMarked) {
     }
 
     tooltip = document.createElement('div')
+    tooltip.id = "TLDRtooltip"
     newtop = rect.top - 200 + window.scrollY
 
     Object.assign(
@@ -132,7 +133,6 @@ function createTooltip(content, isMarked) {
       {
         fontSize: '30px',
         fontFamily: 'Office Code Pro',
-        fontWeight: '900',
         color: 'white'
       }
     )
@@ -161,7 +161,7 @@ function createTooltip(content, isMarked) {
       Object.assign(
         i.style,
         {
-          fontSize: '12px',
+          fontSize: '14px',
           fontFamily: 'Office Code Pro',
           color: 'white',
           listStyleType: 'none'
@@ -173,7 +173,19 @@ function createTooltip(content, isMarked) {
       Object.assign(
         i.style,
         {
-          marginLeft: '0'
+          marginLeft: '0',
+          paddingLeft: '0',
+        }
+      )
+    }
+    for (i of markdownContent.getElementsByTagName('code')) {
+      Object.assign(
+        i.style,
+        {
+          background: 'white',
+          borderRadius: '2px',
+          boxShadow: '0 1px 2px 0 rgba(0,0,0,0.50)',
+          color: '#4A4A4A'
         }
       )
     }
@@ -191,6 +203,12 @@ function removeTooltip() {
     currentContent = null
   }
 }
+
+// window.onclick = function(e){
+//   if (event.target.closest('#TLDRtooltip').length) {
+//     removeTooltip()
+//   }
+// }
 
 window.onmousedown = removeTooltip
 
@@ -240,3 +258,33 @@ window.onresize = function(event) {
     createTooltip(oldContent, true)
   }
 }
+
+//
+// jQuery .closest() equivalent
+// https://stackoverflow.com/questions/18663941/finding-closest-element-without-jquery
+
+// function closest(el, selector) {
+//     var matchesFn;
+//
+//     // find vendor prefix
+//     ['matches','webkitMatchesSelector','mozMatchesSelector','msMatchesSelector','oMatchesSelector'].some(function(fn) {
+//         if (typeof document.body[fn] == 'function') {
+//             matchesFn = fn;
+//             return true;
+//         }
+//         return false;
+//     })
+//
+//     var parent;
+//
+//     // traverse parents
+//     while (el) {
+//         parent = el.parentElement;
+//         if (parent && parent[matchesFn](selector)) {
+//             return parent;
+//         }
+//         el = parent;
+//     }
+//
+//     return null;
+// }

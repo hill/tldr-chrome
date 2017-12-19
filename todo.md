@@ -34,3 +34,7 @@
     - [ ] allow click and open tooltip
 - [ ] create an actual homepage
 - [ ] keyboard shortcut
+- [ ] light theme
+- [ ] compose button
+
+(To request a feature, create an issue *or*, better yet, submit a pull request with the feature implemented :wink:)
