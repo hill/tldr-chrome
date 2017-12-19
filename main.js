@@ -24,9 +24,10 @@ function searchTLDR(command, platform) {
   function reqListener(){
     createTooltip(this.responseText)
   }
+
 }
 
-
+document.createElement("style").innerText += ".TDLRmarkdown h1 {font-family: monospace; font-size: 40px; color: white; } \n .TDLRmarkdown code {background: white;}"
 var tooltip = null
 var arrow = null
 
@@ -35,10 +36,6 @@ function createTooltip(content) {
   var selection = window.getSelection(),
       range = selection.getRangeAt(0),
       rect = range.getBoundingClientRect();
-
-  var markdown = marked(content)
-  var markdownContent = document.createElement('div')
-  markdownContent.innerHTML = markdown
 
   if (rect.width >= 0) {
 
@@ -65,25 +62,41 @@ function createTooltip(content) {
     tooltip.style.left = rect.left + 'px'
     tooltip.style.height = '195px'
     tooltip.style.width = '500px'
+
     document.body.appendChild(tooltip)
 
+    // Create Arrow
+
     arrow = document.createElement('div')
-    tooltip.appendChild(arrow)
-    tooltip.appendChild(markdownContent)
+    document.body.appendChild(arrow)
 
     Object.assign(
       arrow.style,
       {
         width: "0",
         height: "0",
-        borderLeft: "5px solid transparent",
-        borderRight: "5px solid transparent",
-        borderTop: "5px solid #4A4A4A",
+        borderLeft: "10px solid transparent",
+        borderRight: "10px solid transparent",
+        borderTop: "10px solid #4A4A4A",
         position: "absolute",
-        left: '5px',
-        top: tooltip.style.height
+        left: (rect.left) + 5 +'px',
+        top: newtop + 195 + 'px' // newtop + height of tooltip
       }
     )
+
+    // Create markdown and append to tooltip
+    if (content.trim() === "404: Not Found") {
+      console.log('content!')
+      var markdown = "<center><p style='font-size:50px;padding:0; padding-top: 30px; margin:0;'>😱</p><p>Page Not Found!</p><p>Submit a pull request to: <a target='_blank' href='https://github.com/tldr-pages/tldr'>https://github.com/tldr-pages/tldr</a></p>"
+    } else {
+      console.log('markdown!')
+      var markdown = marked(content)
+    }
+
+    var markdownContent = document.createElement('div')
+    markdownContent.innerHTML = markdown
+    markdownContent.className += 'TLDRmarkdown'
+    tooltip.appendChild(markdownContent)
 
     Object.assign(
       markdownContent.style,
@@ -93,6 +106,8 @@ function createTooltip(content) {
       }
     )
 
+    //markdownContent.getElementsByTagName('h1')
+
   }
 
 }
@@ -101,6 +116,8 @@ function removeTooltip() {
   if (tooltip != null) {
     tooltip.parentNode.removeChild(tooltip)
     tooltip = null
+    arrow.parentNode.removeChild(arrow)
+    arrow = null
   }
 }
 
