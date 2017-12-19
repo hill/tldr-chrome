@@ -1,21 +1,5 @@
-/*
-TODO
-
-[x] search for word in github
-[x] load relavent markdown
-[ ] display markdown in tooltip
-[x] make tool tip stay in place on scroll
-[x] arrow in the tooltip
-[ ] flip tooltip based on where the element is on the page
-[ ] search for keywords in pre and code tags
-    - display underline
-    - allow click and open tooltip
-[ ] comment current codebase
-
-*/
 
 //https://api.github.com/repos/tldr-pages/tldr/contents/pages/common
-//let md = new MarkdownIt();
 let tldrURL = "https://raw.githubusercontent.com/tldr-pages/tldr/master/pages"
 
 // For right-click tldr search
@@ -52,9 +36,9 @@ function createTooltip(content) {
       range = selection.getRangeAt(0),
       rect = range.getBoundingClientRect();
 
-  //var markdown = md.render(content)
+  var markdown = marked(content)
   var markdownContent = document.createElement('div')
-  markdownContent.innerHTML = content
+  markdownContent.innerHTML = markdown
 
   if (rect.width >= 0) {
 
@@ -71,6 +55,7 @@ function createTooltip(content) {
         borderRadius: "8px",
         transition: '.2s',
         position: "absolute",
+        overflow: "scroll"
 
       }
     )
@@ -113,8 +98,9 @@ function createTooltip(content) {
 }
 
 function removeTooltip() {
-  if (tooltip) {
+  if (tooltip != null) {
     tooltip.parentNode.removeChild(tooltip)
+    tooltip = null
   }
 }
 
