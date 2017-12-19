@@ -8,13 +8,21 @@
 
 ## v0.2.0
 
+- [ ] Error message if no content from GitHub
 - [ ] arrow in the tooltip
 - [ ] flip tooltip based on where the element is on the page
 - [ ] style markdown
 
 ## v0.3.0
 
+- [ ] comment / document current codebase
+
+## v1.0.0 :raised_hands: (release)
+- [ ] Icon for right-click menu bar
+- [ ] Icon for store
+- [ ] Screenshots
+
+## Other features
 - [ ] search for keywords in pre and code tags
     - [ ] display underline
     - [ ] allow click and open tooltip
-- [ ] comment current codebase
