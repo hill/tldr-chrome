@@ -11,7 +11,7 @@
       "matches": [
         "<all_urls>"
       ],
-      "js": ["main.js"]
+      "js": ["markdown-it.min.js", "main.js"]
     }
   ],
   "background": {

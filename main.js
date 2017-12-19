@@ -15,7 +15,7 @@ TODO
 */
 
 //https://api.github.com/repos/tldr-pages/tldr/contents/pages/common
-
+//let md = new MarkdownIt();
 let tldrURL = "https://raw.githubusercontent.com/tldr-pages/tldr/master/pages"
 
 // For right-click tldr search
@@ -43,7 +43,6 @@ function searchTLDR(command, platform) {
 }
 
 
-var div = null
 var tooltip = null
 var arrow = null
 
@@ -53,22 +52,11 @@ function createTooltip(content) {
       range = selection.getRangeAt(0),
       rect = range.getBoundingClientRect();
 
-  if (rect.width >= 0) {
+  //var markdown = md.render(content)
+  var markdownContent = document.createElement('div')
+  markdownContent.innerHTML = content
 
-  //   if (div) {
-  //     div.parentNode.removeChild(div)
-  //   }
-  //
-  //   div = document.createElement('div') // create the box
-  //   div.class = 'rect'
-  //   div.style.border = '2px solid black' // create outline
-  //   div.style.position = 'fixed'
-  //   div.style.top = rect.top + 'px'
-  //   div.style.left = rect.left + 'px'
-  //   div.style.height = rect.height + 'px'
-  //   div.style.width = rect.width + 'px'
-  //   document.body.appendChild(div) // append to document
-  // }
+  if (rect.width >= 0) {
 
     if (tooltip) {
       tooltip.parentNode.removeChild(tooltip)
@@ -91,11 +79,12 @@ function createTooltip(content) {
     tooltip.style.top = newtop + 'px'
     tooltip.style.left = rect.left + 'px'
     tooltip.style.height = '195px'
-    tooltip.style.width = '300px'
+    tooltip.style.width = '500px'
     document.body.appendChild(tooltip)
 
     arrow = document.createElement('div')
     tooltip.appendChild(arrow)
+    tooltip.appendChild(markdownContent)
 
     Object.assign(
       arrow.style,
@@ -108,8 +97,14 @@ function createTooltip(content) {
         position: "absolute",
         left: '5px',
         top: tooltip.style.height
+      }
+    )
 
-
+    Object.assign(
+      markdownContent.style,
+      {
+        color: "white",
+        padding: "10px"
       }
     )
 
