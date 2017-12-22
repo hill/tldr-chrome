@@ -18,7 +18,7 @@
 ## v0.3.0
 
 - [ ] comment / document current codebase
-- [ ] flip tooltip based on where the element is on the page
+- [ ] flip tooltip position based on where the element is on the page
 
 ## v1.0.0 :raised_hands: (release)
 - [ ] Icon for right-click menu bar
