@@ -42,7 +42,6 @@ function searchTLDR(command, platform) {
 
 function createTooltip(content, isMarked) {
   isMarked = isMarked || false
-  // https://stackoverflow.com/questions/18302683/how-to-create-tooltip-over-text-selection-without-wrapping/18302723#18302723
   var selection = window.getSelection(),
       range = selection.getRangeAt(0),
       rect = range.getBoundingClientRect();
@@ -204,12 +203,6 @@ function removeTooltip() {
   }
 }
 
-// window.onclick = function(e){
-//   if (event.target.closest('#TLDRtooltip').length) {
-//     removeTooltip()
-//   }
-// }
-
 window.onmousedown = removeTooltip
 
 var commandList = []
@@ -258,33 +251,3 @@ window.onresize = function(event) {
     createTooltip(oldContent, true)
   }
 }
-
-//
-// jQuery .closest() equivalent
-// https://stackoverflow.com/questions/18663941/finding-closest-element-without-jquery
-
-// function closest(el, selector) {
-//     var matchesFn;
-//
-//     // find vendor prefix
-//     ['matches','webkitMatchesSelector','mozMatchesSelector','msMatchesSelector','oMatchesSelector'].some(function(fn) {
-//         if (typeof document.body[fn] == 'function') {
-//             matchesFn = fn;
-//             return true;
-//         }
-//         return false;
-//     })
-//
-//     var parent;
-//
-//     // traverse parents
-//     while (el) {
-//         parent = el.parentElement;
-//         if (parent && parent[matchesFn](selector)) {
-//             return parent;
-//         }
-//         el = parent;
-//     }
-//
-//     return null;
-// }
