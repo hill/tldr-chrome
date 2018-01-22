@@ -4,7 +4,7 @@
   "version": "0.1.5",
   "description": "Simplified and community-driven man pages for chrome",
   "author": "Tom Hill",
-  "homepage_url": "http://tldr.sh/",
+  "homepage_url": "https://tldr.sh",
   "content_scripts": [
     {
       "matches": [
