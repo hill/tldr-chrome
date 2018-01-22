@@ -3,7 +3,6 @@
   "name": "tldr-chrome",
   "version": "0.1.5",
   "description": "Simplified and community-driven man pages for chrome",
-  "icons": {},
   "author": "Tom Hill",
   "homepage_url": "http://tldr.sh/",
   "content_scripts": [
