@@ -1,24 +1,25 @@
 # TODO
 
-## v0.1.0
+## ~~v0.1.0~~
 - [x] search for word in GitHub
 - [x] load relevant markdown
 - [x] display markdown in tooltip
 - [x] make tool tip stay in place on scroll
 
-## v0.2.0
+## ~~v0.2.0~~
 
 - [x] Error message if no content from GitHub
   - [x] Link to Github contribution page
 - [x] arrow in the tooltip
-- [ ] style markdown
-  - [ ] Better fonts
-  - [ ] Remove styles inherited from document
+- [x] style markdown
+  - [x] Better fonts
+  - [x] Remove styles inherited from document (thanks @pxgamer)
 
 ## v0.3.0
 
 - [ ] comment / document current codebase
 - [ ] flip tooltip position based on where the element is on the page
+- [ ] Convert to `fetch` rather than `XMLHttpRequest`
 
 ## v1.0.0 :raised_hands: (release)
 - [x] Icon for right-click menu bar
