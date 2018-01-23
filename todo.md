@@ -21,8 +21,8 @@
 - [ ] flip tooltip position based on where the element is on the page
 
 ## v1.0.0 :raised_hands: (release)
-- [ ] Icon for right-click menu bar
-- [ ] Icon for store
+- [x] Icon for right-click menu bar
+- [x] Icon for store
 - [ ] Screenshots
 - [ ] Description
 - [ ] Better README
