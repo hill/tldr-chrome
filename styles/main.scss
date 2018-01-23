@@ -1,29 +1,9 @@
-@font-face
-{
-    font-family: 'Office Code Pro';
-    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OfficeCodePro-Medium.woff') format('woff');
-}
-
-@font-face
-{
-    font-family: 'Office Code Pro';
-    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OfficeCodePro-Bold.woff') format('woff');
-    font-weight: 900;
-}
-
-@font-face
-{
-    font-family: 'Office Code Pro';
-    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OfficeCodePro-MediumItalic.woff') format('woff');
-    font-style: italic
-}
-
 #tldr-chrome
 {
     *
     {
         all: initial;
-        font-family: 'Office Code Pro', monospace;
+        font-family: monospace;
         color: #ffffff;
     }
 
