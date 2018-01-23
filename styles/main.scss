@@ -1,0 +1,83 @@
+@font-face
+{
+    font-family: 'Office Code Pro';
+    src: url('') format('woff');
+}
+
+@font-face
+{
+    font-family: 'Office Code Pro';
+    src: url('') format('woff');
+    font-weight: 900;
+}
+
+@font-face
+{
+    font-family: 'Office Code Pro';
+    src: url('') format('woff');
+    font-style: italic
+}
+
+#tldr-chrome
+{
+    color: #ffffff;
+    padding: 10px;
+
+    background: #4A4A4A;
+    box-shadow: 0 2px 4px;
+    border-radius: 8px;
+    transition: .2s;
+    position: absolute;
+    overflow: auto;
+    height: 195px;
+    width: 500px;
+
+    code
+    {
+        background: white;
+        border-radius: 2px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.50);
+        color: #4A4A4A;
+    }
+    ul
+    {
+        margin-left: 0;
+        padding-left: 0;
+    }
+    li
+    {
+        font-size: 14px;
+        font-family: 'Office Code Pro', monospace;
+        color: #ffffff;
+        list-style-type: none;
+    }
+    p
+    {
+        font-size: 15px;
+        font-family: 'Office Code Pro', monospace;
+        color: #ffffff;
+    }
+    h1
+    {
+        font-size: 30px;
+        font-family: 'Office Code Pro', monospace;
+        color: #ffffff;
+    }
+    blockquote
+    {
+        font-size: 15px;
+        font-family: 'Office Code Pro', monospace;
+        font-style: italic;
+        color: #ffffff;
+    }
+}
+
+#tldr-chrome-arrow
+{
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #4A4A4A;
+    position: absolute;
+}
