@@ -13,6 +13,9 @@
       "js": [
         "marked.js",
         "main.js"
+      ],
+      "css": [
+        "styles/main.css"
       ]
     }
   ],
