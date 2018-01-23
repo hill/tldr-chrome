@@ -79,7 +79,15 @@
     }
     .not-found
     {
-        text-align: center;
+        p
+        {
+            text-align: center;
+        }
+        a
+        {
+            cursor: pointer;
+            color: royalblue;
+        }
         .large
         {
             font-size: 50px;
