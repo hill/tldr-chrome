@@ -13,6 +13,9 @@
       "js": [
         "marked.js",
         "main.js"
+      ],
+      "css": [
+        "styles/main.css"
       ]
     }
   ],
@@ -24,6 +27,9 @@
   "permissions": [
     "contextMenus",
     "tabs"
+  ],
+  "web_accessible_resources": [
+    "fonts/*"
   ],
   "icons": {
     "16": "icons/icon16.png",

@@ -1,0 +1,111 @@
+@font-face
+{
+    font-family: 'Office Code Pro';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OfficeCodePro-Medium.woff') format('woff');
+}
+
+@font-face
+{
+    font-family: 'Office Code Pro';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OfficeCodePro-Bold.woff') format('woff');
+    font-weight: 900;
+}
+
+@font-face
+{
+    font-family: 'Office Code Pro';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OfficeCodePro-MediumItalic.woff') format('woff');
+    font-style: italic
+}
+
+#tldr-chrome
+{
+    *
+    {
+        all: initial;
+        font-family: 'Office Code Pro', monospace;
+        color: #ffffff;
+    }
+
+    z-index: 1000;
+    padding: 10px;
+    box-sizing: border-box;
+    background: #4A4A4A;
+    box-shadow: 0 2px 4px;
+    border-radius: 8px;
+    transition: .2s;
+    position: absolute;
+    overflow: auto;
+    height: 195px;
+    width: 500px;
+
+    code
+    {
+        font-family: monospace;
+        font-size: 12px;
+        background: white;
+        border-radius: 2px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.50);
+        padding: 2px;
+        color: #4A4A4A;
+    }
+    ul
+    {
+        margin-left: 0;
+        padding-left: 0;
+    }
+    li
+    {
+        font-size: 12px;
+        list-style-type: none;
+        line-height: 2;
+    }
+    p
+    {
+        margin-top: 0;
+        margin-bottom: 10px;
+        display: block;
+        font-size: 15px;
+    }
+    h1
+    {
+        font-size: 30px;
+        font-weight: bold;
+    }
+    blockquote, blockquote p
+    {
+        font-size: 15px;
+        font-style: italic;
+    }
+    .not-found
+    {
+        p
+        {
+            text-align: center;
+        }
+        a
+        {
+            cursor: pointer;
+            color: royalblue;
+        }
+        .large
+        {
+            font-size: 50px;
+            padding: 30px 0 0;
+            margin: 0;
+        }
+    }
+}
+
+#tldr-chrome-arrow
+{
+    all: initial;
+
+    z-index: 1000;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #4A4A4A;
+    position: absolute;
+}
