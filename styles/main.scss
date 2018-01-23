@@ -20,8 +20,14 @@
 
 #tldr-chrome
 {
+    *
+    {
+        all: initial;
+        font-family: 'Office Code Pro', monospace;
+        color: #ffffff;
+    }
+
     z-index: 1000;
-    color: #ffffff;
     padding: 10px;
 
     background: #4A4A4A;
@@ -35,9 +41,12 @@
 
     code
     {
+        font-family: monospace;
+        font-size: 12px;
         background: white;
         border-radius: 2px;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.50);
+        padding: 2px;
         color: #4A4A4A;
     }
     ul
@@ -47,29 +56,25 @@
     }
     li
     {
-        font-size: 14px;
-        font-family: 'Office Code Pro', monospace;
-        color: #ffffff;
+        font-size: 12px;
         list-style-type: none;
     }
     p
     {
+        margin-top: 0;
+        margin-bottom: 10px;
+        display: block;
         font-size: 15px;
-        font-family: 'Office Code Pro', monospace;
-        color: #ffffff;
     }
     h1
     {
         font-size: 30px;
-        font-family: 'Office Code Pro', monospace;
-        color: #ffffff;
+        font-weight: bold;
     }
-    blockquote
+    blockquote, blockquote p
     {
         font-size: 15px;
-        font-family: 'Office Code Pro', monospace;
         font-style: italic;
-        color: #ffffff;
     }
     .not-found
     {
@@ -85,6 +90,8 @@
 
 #tldr-chrome-arrow
 {
+    all: initial;
+
     z-index: 1000;
     width: 0;
     height: 0;
