@@ -19,7 +19,7 @@
 
 - [ ] comment / document current codebase
 - [ ] flip tooltip position based on where the element is on the page
-- [ ] Convert to `fetch` rather than `XMLHttpRequest`
+- [ ] Convert to `fetch` rather than `XMLHttpRequest` (see #4)
 
 ## v1.0.0 :raised_hands: (release)
 - [x] Icon for right-click menu bar
