@@ -76,7 +76,7 @@ function createTooltip(content, isMarked) {
 
     // Create markdown and append to tooltip
     if (content.trim() === "404: Not Found") {
-      var markdown = "<div class='not-found'><p class='large'>😱</p><p>Page Not Found!</p><p>Submit a pull request to: <a target='_blank' href='https://github.com/tldr-pages/tldr'>https://github.com/tldr-pages/tldr</a></p>"
+      var markdown = "<div class='not-found'><p class='large'>😱</p><p>Page Not Found!</p><p>Submit a pull request to: <a target='_blank' href='https://github.com/tldr-pages/tldr'>https://github.com/tldr-pages/tldr</a></p></div>"
     } else if (isMarked) {
       var markdown = content
     } else {
