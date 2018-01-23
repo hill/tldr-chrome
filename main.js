@@ -76,7 +76,7 @@ function createTooltip(content, isMarked) {
 
     // Create markdown and append to tooltip
     if (content.trim() === "404: Not Found") {
-      var markdown = "<center><p style='font-size:50px;padding:0; padding-top: 30px; margin:0;'>😱</p><p>Page Not Found!</p><p>Submit a pull request to: <a target='_blank' href='https://github.com/tldr-pages/tldr'>https://github.com/tldr-pages/tldr</a></p>"
+      var markdown = "<div class='not-found'><p class='large'>😱</p><p>Page Not Found!</p><p>Submit a pull request to: <a target='_blank' href='https://github.com/tldr-pages/tldr'>https://github.com/tldr-pages/tldr</a></p>"
     } else if (isMarked) {
       var markdown = content
     } else {
@@ -87,7 +87,7 @@ function createTooltip(content, isMarked) {
 
     var markdownContent = document.createElement('div')
     markdownContent.innerHTML = markdown
-    markdownContent.className += 'TLDRmarkdown'
+    markdownContent.className += 'tldr-chrome'
     tooltip.appendChild(markdownContent)
   }
 
