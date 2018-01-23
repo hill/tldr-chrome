@@ -1,15 +1,6 @@
 
 //https://api.github.com/repos/tldr-pages/tldr/contents/pages/common
 let tldrURL = "https://raw.githubusercontent.com/tldr-pages/tldr/master/pages"
-let fontURLBold = chrome.runtime.getURL('/fonts/OfficeCodePro-Bold.woff'),
-    fontURLMedium = chrome.runtime.getURL('/fonts/OfficeCodePro-Medium.woff'),
-    fontURLMediumItalic = chrome.runtime.getURL('/fonts/OfficeCodePro-MediumItalic.woff')
-
-document.createElement("style").innerText += ".TDLRmarkdown h1 {font-family: monospace; font-size: 40px; color: white; }\
-                                              .TDLRmarkdown code {background: white;}\
-                                              @font-face { font-family: 'Office Code Pro'; src:  url('" + fontURLMedium + "') format('woff');}\
-                                              @font-face { font-family: 'Office Code Pro'; src:  url('" + fontURLBold + "') format('woff'); font-weight: 900;}\
-                                              @font-face { font-family: 'Office Code Pro'; src:  url('" + fontURLMediumItalic + "') format('woff'); font-style: italic}"
 var tooltip = null
 var arrow = null
 var currentContent = null
@@ -55,22 +46,14 @@ function createTooltip(content, isMarked) {
     }
 
     tooltip = document.createElement('div')
-    tooltip.id = "TLDRtooltip"
+    tooltip.id = "tldr-chrome"
     newtop = rect.top - 200 + window.scrollY
 
     Object.assign(
       tooltip.style,
       {
-        background: "#4A4A4A",
-        boxShadow: "0 2px 4px 0 rgba(0,0,0,0.50)",
-        borderRadius: "8px",
-        transition: '.2s',
-        position: "absolute",
-        overflow: "scroll",
         top: newtop + 'px',
         left: rect.left + 'px',
-        height: '195px',
-        width: '500px'
 
       }
     )
@@ -80,17 +63,12 @@ function createTooltip(content, isMarked) {
     // Create Arrow
 
     arrow = document.createElement('div')
+    arrow.id = "tldr-chrome-arrow"
     document.body.appendChild(arrow)
 
     Object.assign(
       arrow.style,
       {
-        width: "0",
-        height: "0",
-        borderLeft: "10px solid transparent",
-        borderRight: "10px solid transparent",
-        borderTop: "10px solid #4A4A4A",
-        position: "absolute",
         left: (rect.left) + 5 +'px',
         top: newtop + 195 + 'px' // newtop + height of tooltip
       }
@@ -111,84 +89,6 @@ function createTooltip(content, isMarked) {
     markdownContent.innerHTML = markdown
     markdownContent.className += 'TLDRmarkdown'
     tooltip.appendChild(markdownContent)
-
-    fontface = document.createElement('style')
-    document.head.appendChild(fontface)
-    fontface.innerText += "@font-face { font-family: 'Office Code Pro'; src:  url('" + fontURLMedium + "') format('woff');}\
-    @font-face { font-family: 'Office Code Pro'; src:  url('" + fontURLBold + "') format('woff'); font-weight: 900;}\
-    @font-face { font-family: 'Office Code Pro'; src:  url('" + fontURLMediumItalic + "') format('woff'); font-style: italic}\
-    "
-
-    Object.assign(
-      markdownContent.style,
-      {
-        color: "white",
-        padding: "10px"
-      }
-    )
-
-    Object.assign(
-      markdownContent.getElementsByTagName('h1')[0].style,
-      {
-        fontSize: '30px',
-        fontFamily: 'Office Code Pro',
-        color: 'white'
-      }
-    )
-
-    Object.assign(
-      markdownContent.getElementsByTagName('blockquote')[0].style,
-      {
-        fontSize: '15px',
-        fontFamily: 'Office Code Pro',
-        fontStyle: 'italic',
-        color: 'white'
-      }
-    )
-
-    for (i of markdownContent.getElementsByTagName('p')) {
-      Object.assign(
-        i.style,
-        {
-          fontSize: '15px',
-          fontFamily: 'Office Code Pro',
-          color: 'white'
-        }
-      )
-    }
-    for (i of markdownContent.getElementsByTagName('li')) {
-      Object.assign(
-        i.style,
-        {
-          fontSize: '14px',
-          fontFamily: 'Office Code Pro',
-          color: 'white',
-          listStyleType: 'none'
-
-        }
-      )
-    }
-    for (i of markdownContent.getElementsByTagName('ul')) {
-      Object.assign(
-        i.style,
-        {
-          marginLeft: '0',
-          paddingLeft: '0',
-        }
-      )
-    }
-    for (i of markdownContent.getElementsByTagName('code')) {
-      Object.assign(
-        i.style,
-        {
-          background: 'white',
-          borderRadius: '2px',
-          boxShadow: '0 1px 2px 0 rgba(0,0,0,0.50)',
-          color: '#4A4A4A'
-        }
-      )
-    }
-
   }
 
 }
