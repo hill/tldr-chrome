@@ -1,5 +1,7 @@
-//https://api.github.com/repos/tldr-pages/tldr/contents/pages/common
+// Define constants
+const apiContentURL = "https://api.github.com/repos/tldr-pages/tldr/contents/pages/common";
 const tldrURL = "https://raw.githubusercontent.com/tldr-pages/tldr/master/pages";
+
 let tooltip = null;
 let arrow = null;
 let currentContent = null;
@@ -115,7 +117,7 @@ function generateCommandList(callback)
   xhr.addEventListener("load", reqListener);
   xhr.open(
     "GET",
-    "https://api.github.com/repos/tldr-pages/tldr/contents/pages/common"
+    apiContentURL
   );
   xhr.send();
 
