@@ -1,4 +1,3 @@
-
 //https://api.github.com/repos/tldr-pages/tldr/contents/pages/common
 let tldrURL = "https://raw.githubusercontent.com/tldr-pages/tldr/master/pages";
 var tooltip = null;
@@ -14,7 +13,8 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-function searchTLDR(command, platform) {
+function searchTLDR(command, platform)
+{
   platform = platform || "common";
 
   var xhr = new XMLHttpRequest();
@@ -25,19 +25,18 @@ function searchTLDR(command, platform) {
   );
   xhr.send();
 
-  function reqListener(){
+  function reqListener()
+  {
     createTooltip(this.responseText);
   }
-
 }
 
-function createTooltip(content, isMarked) {
+function createTooltip(content, isMarked)
+{
   isMarked = isMarked || false
   var selection = window.getSelection(),
-      range = selection.getRangeAt(0),
-      rect = range.getBoundingClientRect();
-
-
+    range = selection.getRangeAt(0),
+    rect = range.getBoundingClientRect();
 
   if (rect.width >= 0) {
 
@@ -61,7 +60,6 @@ function createTooltip(content, isMarked) {
     document.body.appendChild(tooltip);
 
     // Create Arrow
-
     arrow = document.createElement('div');
     arrow.id = "tldr-chrome-arrow";
     document.body.appendChild(arrow);
@@ -69,7 +67,7 @@ function createTooltip(content, isMarked) {
     Object.assign(
       arrow.style,
       {
-        left: (rect.left) + 5 +'px',
+        left: (rect.left) + 5 + 'px',
         top: newtop + 195 + 'px' // newtop + height of tooltip
       }
     );
@@ -77,10 +75,12 @@ function createTooltip(content, isMarked) {
     // Create markdown and append to tooltip
     if (content.trim() === "404: Not Found") {
       var markdown = "<div class='not-found'><p class='large'>😱</p><p>Page Not Found!</p><p>Submit a pull request to: <a target='_blank' href='https://github.com/tldr-pages/tldr'>https://github.com/tldr-pages/tldr</a></p></div>";
-    } else if (isMarked) {
-      var markdown = content;
     } else {
-      var markdown = marked(content);
+      if (isMarked) {
+        var markdown = content;
+      } else {
+        var markdown = marked(content);
+      }
     }
 
     currentContent = markdown;
@@ -90,10 +90,10 @@ function createTooltip(content, isMarked) {
     markdownContent.className += 'tldr-chrome';
     tooltip.appendChild(markdownContent);
   }
-
 }
 
-function removeTooltip() {
+function removeTooltip()
+{
   if (tooltip != null) {
     tooltip.parentNode.removeChild(tooltip);
     tooltip = null;
@@ -107,7 +107,8 @@ window.onmousedown = removeTooltip;
 
 var commandList = [];
 
-function generateCommandList(callback) {
+function generateCommandList(callback)
+{
   commandList = [];
   var xhr = new XMLHttpRequest();
   xhr.addEventListener("load", reqListener);
@@ -117,21 +118,21 @@ function generateCommandList(callback) {
   );
   xhr.send();
 
-  function reqListener(){
-    var arr = JSON.parse( this.responseText );
+  function reqListener()
+  {
+    var arr = JSON.parse(this.responseText);
 
     for (doc of arr) {
       commandList.push(doc.name.split('.')[0]);
     }
 
     callback();
-
   }
-
 }
 
-function checkCode() {
-  generateCommandList(function(){
+function checkCode()
+{
+  generateCommandList(function() {
     var preTags = document.getElementsByTagName('pre');
     for (tag of preTags) {
       for (word of tag.innerText.split(" ")) {
