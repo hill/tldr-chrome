@@ -9,21 +9,18 @@ console.log(currentContent);
 
 // For right-click tldr search
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
+  (request, sender, sendResponse) => {
     console.log(request.word);
     searchTLDR(request.word.toLowerCase());
   }
 );
 
-function searchTLDR(command, platform)
-{
-  platform = platform || "common";
-
+function searchTLDR(command, platform="common") {
   let xhr = new XMLHttpRequest();
   xhr.addEventListener("load", reqListener);
   xhr.open(
     "GET",
-    tldrURL + '/' + platform + '/' + command + '.md'
+    `${tldrURL}/${platform}/${command}.md`
   );
   xhr.send();
 
@@ -33,13 +30,11 @@ function searchTLDR(command, platform)
   }
 }
 
-function createTooltip(content, isMarked)
-{
-  isMarked = isMarked || false;
-  let selection = window.getSelection(),
-    range = selection.getRangeAt(0),
-    rect = range.getBoundingClientRect(),
-    newtop = null;
+function createTooltip(content, isMarked=false) {
+  let selection = window.getSelection();
+  let range = selection.getRangeAt(0);
+  let rect = range.getBoundingClientRect();
+  let newtop = null;
 
   if (rect.width >= 0) {
 
@@ -54,8 +49,8 @@ function createTooltip(content, isMarked)
     Object.assign(
       tooltip.style,
       {
-        top: newtop + 'px',
-        left: rect.left + 'px',
+        top: `${newtop}px`,
+        left: `${rect.left}px`,
       }
     );
 
@@ -69,8 +64,8 @@ function createTooltip(content, isMarked)
     Object.assign(
       arrow.style,
       {
-        left: (rect.left) + 5 + 'px',
-        top: newtop + 195 + 'px' // newtop + height of tooltip
+        left: `${(rect.left) + 5}px`,
+        top: `${newtop + 195}px` // newtop + height of tooltip
       }
     );
 
@@ -136,21 +131,22 @@ function generateCommandList(callback)
 
 function checkCode()
 {
-  generateCommandList(function() {
-    let tag, word;
+  generateCommandList(() => {
+    let tag;
+    let word;
     let preTags = document.getElementsByTagName('pre');
     for (tag of preTags) {
       for (word of tag.innerText.split(" ")) {
-        if (commandList.indexOf(word.toLowerCase()) > -1) {
+        if (commandList.includes(word.toLowerCase())) {
           // if word is in commandList
-          console.log("FOUND COMMAND: " + word);
+          console.log(`FOUND COMMAND: ${word}`);
         }
       }
     }
   })
 }
 
-window.onresize = function(event) {
+window.onresize = event => {
   let oldContent;
   if (tooltip) {
     oldContent = currentContent;
