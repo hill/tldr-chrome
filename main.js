@@ -41,7 +41,7 @@ function createTooltip (content, isMarked = false) {
       tooltip.parentNode.removeChild(tooltip)
     }
 
-    tooltip = document.createElement('div')
+    tooltip = document.createElement("div")
     tooltip.id = "tldr-chrome"
     newtop = rect.top - 200 + window.scrollY
 
@@ -56,7 +56,7 @@ function createTooltip (content, isMarked = false) {
     document.body.appendChild(tooltip)
 
     // Create Arrow
-    arrow = document.createElement('div')
+    arrow = document.createElement("div")
     arrow.id = "tldr-chrome-arrow"
     document.body.appendChild(arrow)
 
@@ -82,9 +82,9 @@ function createTooltip (content, isMarked = false) {
 
     currentContent = markdown
 
-    let markdownContent = document.createElement('div')
+    let markdownContent = document.createElement("div")
     markdownContent.innerHTML = markdown
-    markdownContent.className += 'tldr-chrome'
+    markdownContent.className += "tldr-chrome"
     tooltip.appendChild(markdownContent)
   }
 }
@@ -118,7 +118,7 @@ function generateCommandList (callback) {
     let arr = JSON.parse(this.responseText)
 
     for (doc of arr) {
-      commandList.push(doc.name.split('.')[0])
+      commandList.push(doc.name.split(".")[0])
     }
 
     callback()
@@ -129,7 +129,7 @@ function checkCode () {
   generateCommandList(() => {
     let tag
     let word
-    let preTags = document.getElementsByTagName('pre')
+    let preTags = document.getElementsByTagName("pre")
     for (tag of preTags) {
       for (word of tag.innerText.split(" ")) {
         if (commandList.includes(word.toLowerCase())) {
