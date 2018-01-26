@@ -1,43 +1,39 @@
+// Define constants
+const apiContentURL = 'https://api.github.com/repos/tldr-pages/tldr/contents/pages/common'
+const tldrURL = 'https://raw.githubusercontent.com/tldr-pages/tldr/master/pages'
 
-//https://api.github.com/repos/tldr-pages/tldr/contents/pages/common
-let tldrURL = "https://raw.githubusercontent.com/tldr-pages/tldr/master/pages"
-var tooltip = null
-var arrow = null
-var currentContent = null
+let tooltip = null
+let arrow = null
+let currentContent = null
 console.log(currentContent)
 
 // For right-click tldr search
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
+  (request, sender, sendResponse) => {
     console.log(request.word)
     searchTLDR(request.word.toLowerCase())
   }
-);
+)
 
-function searchTLDR(command, platform) {
-  platform = platform || "common";
-
-  var xhr = new XMLHttpRequest();
-  xhr.addEventListener("load", reqListener);
+function searchTLDR (command, platform = 'common') {
+  let xhr = new XMLHttpRequest()
+  xhr.addEventListener('load', reqListener)
   xhr.open(
-    "GET",
-    tldrURL + '/' + platform + '/' + command + '.md'
+    'GET',
+    `${tldrURL}/${platform}/${command}.md`
   )
   xhr.send()
 
-  function reqListener(){
+  function reqListener () {
     createTooltip(this.responseText)
   }
-
 }
 
-function createTooltip(content, isMarked) {
-  isMarked = isMarked || false
-  var selection = window.getSelection(),
-      range = selection.getRangeAt(0),
-      rect = range.getBoundingClientRect();
-
-
+function createTooltip (content, isMarked = false) {
+  let selection = window.getSelection()
+  let range = selection.getRangeAt(0)
+  let rect = range.getBoundingClientRect()
+  let newtop = null
 
   if (rect.width >= 0) {
 
@@ -46,54 +42,54 @@ function createTooltip(content, isMarked) {
     }
 
     tooltip = document.createElement('div')
-    tooltip.id = "tldr-chrome"
+    tooltip.id = 'tldr-chrome'
     newtop = rect.top - 200 + window.scrollY
 
     Object.assign(
       tooltip.style,
       {
-        top: newtop + 'px',
-        left: rect.left + 'px',
-
+        top: `${newtop}px`,
+        left: `${rect.left}px`
       }
     )
 
     document.body.appendChild(tooltip)
 
     // Create Arrow
-
     arrow = document.createElement('div')
-    arrow.id = "tldr-chrome-arrow"
+    arrow.id = 'tldr-chrome-arrow'
     document.body.appendChild(arrow)
 
     Object.assign(
       arrow.style,
       {
-        left: (rect.left) + 5 +'px',
-        top: newtop + 195 + 'px' // newtop + height of tooltip
+        left: `${(rect.left) + 5}px`,
+        top: `${newtop + 195}px` // newtop + height of tooltip
       }
     )
 
     // Create markdown and append to tooltip
-    if (content.trim() === "404: Not Found") {
-      var markdown = "<div class='not-found'><p class='large'>😱</p><p>Page Not Found!</p><p>Submit a pull request to: <a target='_blank' href='https://github.com/tldr-pages/tldr'>https://github.com/tldr-pages/tldr</a></p></div>"
-    } else if (isMarked) {
-      var markdown = content
+    let markdown = null
+    if (content.trim() === '404: Not Found') {
+      markdown = '<div class="not-found"><p class="large">😱</p><p>Page Not Found!</p><p>Submit a pull request to: <a target="_blank" href="https://github.com/tldr-pages/tldr">https://github.com/tldr-pages/tldr</a></p></div>'
     } else {
-      var markdown = marked(content)
+      if (isMarked) {
+        markdown = content
+      } else {
+        markdown = marked(content)
+      }
     }
 
-    currentContent = markdown;
+    currentContent = markdown
 
-    var markdownContent = document.createElement('div')
+    let markdownContent = document.createElement('div')
     markdownContent.innerHTML = markdown
     markdownContent.className += 'tldr-chrome'
     tooltip.appendChild(markdownContent)
   }
-
 }
 
-function removeTooltip() {
+function removeTooltip () {
   if (tooltip != null) {
     tooltip.parentNode.removeChild(tooltip)
     tooltip = null
@@ -105,46 +101,48 @@ function removeTooltip() {
 
 window.onmousedown = removeTooltip
 
-var commandList = []
+let commandList = []
 
-function generateCommandList(callback) {
+function generateCommandList (callback) {
   commandList = []
-  var xhr = new XMLHttpRequest();
-  xhr.addEventListener("load", reqListener);
+  let xhr = new XMLHttpRequest()
+  xhr.addEventListener('load', reqListener)
   xhr.open(
-    "GET",
-    "https://api.github.com/repos/tldr-pages/tldr/contents/pages/common"
+    'GET',
+    apiContentURL
   )
   xhr.send()
 
-  function reqListener(){
-    var arr = JSON.parse( this.responseText )
+  function reqListener () {
+    let doc
+    let arr = JSON.parse(this.responseText)
 
     for (doc of arr) {
       commandList.push(doc.name.split('.')[0])
     }
 
     callback()
-
   }
-
 }
 
-function checkCode() {
-  generateCommandList(function(){
-    var preTags = document.getElementsByTagName('pre')
+function checkCode () {
+  generateCommandList(() => {
+    let tag
+    let word
+    let preTags = document.getElementsByTagName('pre')
     for (tag of preTags) {
-      for (word of tag.innerText.split(" ")) {
-        if (commandList.indexOf(word.toLowerCase()) > -1) {
+      for (word of tag.innerText.split(' ')) {
+        if (commandList.includes(word.toLowerCase())) {
           // if word is in commandList
-          console.log("FOUND COMMAND: " + word)
+          console.log(`FOUND COMMAND: ${word}`)
         }
       }
     }
   })
 }
 
-window.onresize = function(event) {
+window.onresize = event => {
+  let oldContent
   if (tooltip) {
     oldContent = currentContent
     removeTooltip()
