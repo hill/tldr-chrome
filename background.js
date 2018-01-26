@@ -1,7 +1,7 @@
 chrome.contextMenus.create({
-  title: "tldr",
-  contexts: ["selection"],
-  onclick: sendToContext,
+  title: 'tldr',
+  contexts: ['selection'],
+  onclick: sendToContext
 })
 
 function sendToContext (word) {
