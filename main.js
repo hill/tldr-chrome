@@ -1,6 +1,6 @@
 // Define constants
-const apiContentURL = "https://api.github.com/repos/tldr-pages/tldr/contents/pages/common"
-const tldrURL = "https://raw.githubusercontent.com/tldr-pages/tldr/master/pages"
+const apiContentURL = 'https://api.github.com/repos/tldr-pages/tldr/contents/pages/common'
+const tldrURL = 'https://raw.githubusercontent.com/tldr-pages/tldr/master/pages'
 
 let tooltip = null
 let arrow = null
@@ -12,15 +12,15 @@ chrome.runtime.onMessage.addListener(
   (request, sender, sendResponse) => {
     console.log(request.word)
     searchTLDR(request.word.toLowerCase())
-  },
+  }
 )
 
-function searchTLDR (command, platform = "common") {
+function searchTLDR (command, platform = 'common') {
   let xhr = new XMLHttpRequest()
-  xhr.addEventListener("load", reqListener)
+  xhr.addEventListener('load', reqListener)
   xhr.open(
-    "GET",
-    `${tldrURL}/${platform}/${command}.md`,
+    'GET',
+    `${tldrURL}/${platform}/${command}.md`
   )
   xhr.send()
 
@@ -41,23 +41,23 @@ function createTooltip (content, isMarked = false) {
       tooltip.parentNode.removeChild(tooltip)
     }
 
-    tooltip = document.createElement("div")
-    tooltip.id = "tldr-chrome"
+    tooltip = document.createElement('div')
+    tooltip.id = 'tldr-chrome'
     newtop = rect.top - 200 + window.scrollY
 
     Object.assign(
       tooltip.style,
       {
         top: `${newtop}px`,
-        left: `${rect.left}px`,
-      },
+        left: `${rect.left}px`
+      }
     )
 
     document.body.appendChild(tooltip)
 
     // Create Arrow
-    arrow = document.createElement("div")
-    arrow.id = "tldr-chrome-arrow"
+    arrow = document.createElement('div')
+    arrow.id = 'tldr-chrome-arrow'
     document.body.appendChild(arrow)
 
     Object.assign(
@@ -65,13 +65,13 @@ function createTooltip (content, isMarked = false) {
       {
         left: `${(rect.left) + 5}px`,
         top: `${newtop + 195}px` // newtop + height of tooltip
-      },
+      }
     )
 
     // Create markdown and append to tooltip
     let markdown = null
-    if (content.trim() === "404: Not Found") {
-      markdown = "<div class='not-found'><p class='large'>😱</p><p>Page Not Found!</p><p>Submit a pull request to: <a target='_blank' href='https://github.com/tldr-pages/tldr'>https://github.com/tldr-pages/tldr</a></p></div>"
+    if (content.trim() === '404: Not Found') {
+      markdown = '<div class="not-found"><p class="large">😱</p><p>Page Not Found!</p><p>Submit a pull request to: <a target="_blank" href="https://github.com/tldr-pages/tldr">https://github.com/tldr-pages/tldr</a></p></div>'
     } else {
       if (isMarked) {
         markdown = content
@@ -82,9 +82,9 @@ function createTooltip (content, isMarked = false) {
 
     currentContent = markdown
 
-    let markdownContent = document.createElement("div")
+    let markdownContent = document.createElement('div')
     markdownContent.innerHTML = markdown
-    markdownContent.className += "tldr-chrome"
+    markdownContent.className += 'tldr-chrome'
     tooltip.appendChild(markdownContent)
   }
 }
@@ -106,10 +106,10 @@ let commandList = []
 function generateCommandList (callback) {
   commandList = []
   let xhr = new XMLHttpRequest()
-  xhr.addEventListener("load", reqListener)
+  xhr.addEventListener('load', reqListener)
   xhr.open(
-    "GET",
-    apiContentURL,
+    'GET',
+    apiContentURL
   )
   xhr.send()
 
@@ -118,7 +118,7 @@ function generateCommandList (callback) {
     let arr = JSON.parse(this.responseText)
 
     for (doc of arr) {
-      commandList.push(doc.name.split(".")[0])
+      commandList.push(doc.name.split('.')[0])
     }
 
     callback()
@@ -129,9 +129,9 @@ function checkCode () {
   generateCommandList(() => {
     let tag
     let word
-    let preTags = document.getElementsByTagName("pre")
+    let preTags = document.getElementsByTagName('pre')
     for (tag of preTags) {
-      for (word of tag.innerText.split(" ")) {
+      for (word of tag.innerText.split(' ')) {
         if (commandList.includes(word.toLowerCase())) {
           // if word is in commandList
           console.log(`FOUND COMMAND: ${word}`)
