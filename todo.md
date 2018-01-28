@@ -19,8 +19,8 @@
 
 - [ ] comment / document current codebase
 - [ ] flip tooltip position based on where the element is on the page
-- [ ] Convert to `fetch` rather than `XMLHttpRequest` (see #4)
-- [ ] Ensure the tooltip does not disappear when clicking within the tooltip itself but is removed when user clicks outside of the tooltip 
+- [x] Convert to `fetch` rather than `XMLHttpRequest` (see #4)
+- [ ] Ensure the tooltip does not disappear when clicking within the tooltip itself but is removed when user clicks outside of the tooltip
 
 ## v1.0.0 :raised_hands: (release)
 - [x] Icon for right-click menu bar
