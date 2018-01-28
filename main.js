@@ -12,21 +12,19 @@ chrome.runtime.onMessage.addListener(
   (request, sender, sendResponse) => {
     console.log(request.word)
     searchTLDR(request.word.toLowerCase())
+    checkCode()
   }
 )
 
 function searchTLDR (command, platform = 'common') {
-  let xhr = new XMLHttpRequest()
-  xhr.addEventListener('load', reqListener)
-  xhr.open(
-    'GET',
-    `${tldrURL}/${platform}/${command}.md`
-  )
-  xhr.send()
-
-  function reqListener () {
-    createTooltip(this.responseText)
-  }
+  // Fetch the content from TLDR github repo
+  fetch(`${tldrURL}/${platform}/${command}.md`)
+    .then((response) => {
+      return response.text()
+    })
+    .then(data => {
+      createTooltip(data)
+    })
 }
 
 function createTooltip (content, isMarked = false) {
@@ -103,28 +101,25 @@ window.onmousedown = removeTooltip
 
 let commandList = []
 
+// Creates a list of all commands available in the TLDR repo
 function generateCommandList (callback) {
   commandList = []
-  let xhr = new XMLHttpRequest()
-  xhr.addEventListener('load', reqListener)
-  xhr.open(
-    'GET',
-    apiContentURL
-  )
-  xhr.send()
 
-  function reqListener () {
-    let doc
-    let arr = JSON.parse(this.responseText)
+  fetch(apiContentURL)
+    .then((response) => {
+      return response.json()
+    })
+    .then(data => {
+      let doc
+      for (doc of data) {
+        commandList.push(doc.name.split('.')[0])
+      }
 
-    for (doc of arr) {
-      commandList.push(doc.name.split('.')[0])
-    }
-
-    callback()
-  }
+      callback()
+    })
 }
 
+// Checks if a command in pre tags is available in the TLDR github repo
 function checkCode () {
   generateCommandList(() => {
     let tag
