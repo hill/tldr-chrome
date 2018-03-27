@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "tldr-chrome",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Simplified and community-driven man pages for chrome",
   "author": "Tom Hill",
   "homepage_url": "https://tldr.sh",
