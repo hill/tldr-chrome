@@ -15,12 +15,11 @@
   - [x] Better fonts
   - [x] Remove styles inherited from document (thanks @pxgamer)
 
-## v0.3.0
+## ~~v0.3.0~~
 
-- [ ] comment / document current codebase
-- [ ] flip tooltip position based on where the element is on the page
+- [x] comment / document current codebase
 - [x] Convert to `fetch` rather than `XMLHttpRequest` (see #4)
-- [ ] Ensure the tooltip does not disappear when clicking within the tooltip itself but is removed when user clicks outside of the tooltip
+- [x] Ensure the tooltip does not disappear when clicking within the tooltip itself but is removed when user clicks outside of the tooltip
 
 ## v1.0.0 :raised_hands: (release)
 - [x] Icon for right-click menu bar
@@ -28,7 +27,6 @@
 - [ ] Screenshots
 - [ ] Description
 - [ ] Better README
-- [ ] Contribution Guidelines
 
 ## Other features
 - [ ] search for keywords in pre and code tags
@@ -38,5 +36,7 @@
 - [ ] keyboard shortcut
 - [ ] light theme
 - [ ] compose button
+- [ ] flip tooltip position based on where the element is on the page
+- [ ] copy to clipboard
 
 (To request a feature you can create an issue *or*, better yet, submit a pull request with the feature implemented :wink:)

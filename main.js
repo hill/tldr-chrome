@@ -87,6 +87,7 @@ function createTooltip (content, isMarked = false) {
   }
 }
 
+// removes the tooltip, arrow and content
 function removeTooltip () {
   if (tooltip != null) {
     tooltip.parentNode.removeChild(tooltip)
@@ -97,7 +98,17 @@ function removeTooltip () {
   }
 }
 
-window.onmousedown = removeTooltip
+// Ensures the tldr tooltip does not close if clicked on
+window.onmousedown = (mouseDownEvent) => {
+  let isPopup = false
+  mouseDownEvent.path.forEach((elementInPath) => {
+    if (elementInPath.id === 'tldr-chrome') isPopup = true
+  })
+
+  if (!isPopup) {
+    removeTooltip()
+  }
+}
 
 let commandList = []
 
@@ -136,6 +147,7 @@ function checkCode () {
   })
 }
 
+// Deletes the tooltip and resizes when window is resized.
 window.onresize = event => {
   let oldContent
   if (tooltip) {
