@@ -5,6 +5,11 @@
 
 (feel free to contribute :smile:)
 
+## Download
+
+Get the extension 
+[here](https://chrome.google.com/webstore/detail/tldr-chrome/nnmlddkpgoecicoallmimonoboialpap)
+
 ## Loading Extension
 
 - The extension is yet to be released to the chrome webstore.
