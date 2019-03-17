@@ -5,7 +5,7 @@ const tldrURL = 'https://raw.githubusercontent.com/tldr-pages/tldr/master/pages'
 let tooltip = null
 let arrow = null
 let currentContent = null
-console.log(currentContent)
+
 
 // For right-click tldr search
 chrome.runtime.onMessage.addListener(
