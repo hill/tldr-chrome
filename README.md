@@ -1,3 +1,9 @@
+# This repo is not maintained.
+
+Please use this [fork](https://github.com/piraces/tldr-extension-browser) by @piraces instead. Thanks :)
+
+
+
 # tldr-chrome
 📚 A chrome extension for [tldr-pages](https://github.com/tldr-pages/tldr).
 
